@@ -54,7 +54,7 @@ int main(int argc , char *argv[])
         uint16_t *clilen = malloc(sizeof(uint16_t));
         memset(cliaddr, 0, sizeof(struct sockaddr_in));
         *clilen = 0;
-        /* 会一直阻塞知道TCP新连接 */
+        /* 会一直阻塞直到TCP新连接 */
         if((connfd = accept(listenfd, (struct sockaddr *)cliaddr, (socklen_t*)&clilen)) < 0 ){
             perror("accept error");
             exit(1);
