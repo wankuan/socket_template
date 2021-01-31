@@ -22,7 +22,7 @@ int main(int argc , char *argv[])
     /* 接收指定端口的所有消息 */
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	servaddr.sin_port = htons(8888);
+	servaddr.sin_port = htons(50001);
 
     char *addr_s;
     uint16_t port;
@@ -44,7 +44,7 @@ int main(int argc , char *argv[])
 		exit(1);
 	}
 
-    uint16_t clilen = sizeof(cliaddr);
+    socklen_t clilen = sizeof(cliaddr);
     /* 返回已连接的套接字（已完成TCP三次握手），完成服务时，将会被关闭
     ** 第一个参数为监听套接字，在整个服务器生命周期一直存在，仅一个，用于监听新TCP连接
     ** 第二、三参数为已连接TCP请求的客户端信息，可设为空指针
@@ -67,8 +67,13 @@ int main(int argc , char *argv[])
     while((n = read(connfd, buf, sizeof(buf)))>0)
     {
         buf[n]='\0';
+        for(uint32_t i=0;i<n;i++)
+        {
+            printf("%x ", buf[i]);
+        }
+        printf("\n");
         /* 接收消息，并打印出长度 */
-        printf("mesg:%s\n", buf);
+        // printf("mesg:%s\n", buf);
         printf("len:%ld\n", n);
     }
     /* 客户端已关闭，关闭已连接的套接字 */

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     /* 本地的8000端口 */
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    serv_addr.sin_port = htons(8888);
+    serv_addr.sin_port = htons(50001);
 
     /* 连接服务器 */
     if(connect(client_socket, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0){
